@@ -1,0 +1,29 @@
+project:
+  type: book
+
+book:
+  sidebar:
+    search: true
+    logo: images/tiles_header.png
+  title: "recTiles"
+  author: Julia Schedler
+  date: "7/10/2023"
+  chapters:
+    - href: index.qmd
+      text: Home
+    - href: handdrawn.qmd
+      text: Julias first tiles
+    - href: Construction.qmd
+      text: Construction outline
+#    - references.qmd
+
+#bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

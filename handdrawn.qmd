@@ -1,0 +1,329 @@
+# Julia's First Tiles {.unnumbered}
+
+## Hand-drawn
+
+### First Tile
+
+![Actually I did this one second, but this is the first matrix I chose. Alex suggested I change to the one visualized next.](images/first_by_hand.png){fig-alt="A piece of paper with the matrix M given below this image, some calculations using that matrix, a failed attempt at visualizing the tiling from that matrix, and the correct hand-drawing."}
+
+$$
+M = \begin{bmatrix}2 & 1\\ -1 & 1\end{bmatrix}
+$$
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: first
+#| warning: false
+#| echo: false
+
+library(ggplot2)
+
+## original coordinates
+A <- matrix(c(2, -1), ncol = 1)
+B <- matrix(c(1, 1), ncol = 1)
+
+## coordinates for 4 copies/combos ## HAS TO BE THE SAME OR ELSE IT'S NOT ALIGNED
+copies <- -20:20
+coefs <- expand.grid(copies, copies)
+
+x.coords <- coefs$Var1*A[1] + coefs$Var2*B[1]
+y.coords <- coefs$Var1*A[2] + coefs$Var2*B[2]
+
+plot.dat <- data.frame(x = x.coords, y = y.coords)
+p <- ggplot(data = plot.dat, aes(x = x, y = y)) +
+	geom_point() + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) + 
+	geom_rect(xmin = -7, xmax = 15, ymin = -14, ymax = 7, fill = "#FFFFFF00", col = "black") + 
+	theme_minimal()
+
+## create on-diag rectangles
+p1 <- p + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], fill = "lightgreen", col = "darkgreen") + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) 
+## create off-diag rectangles
+p2 <- p1 + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], fill = "yellow", col = "orange")
+p2 + geom_point(col = "magenta")
+
+```
+
+### Second Tile
+
+![The second tiling, actually the very first that I drew (well, the first I drew correctly\-- see my mistake?)](images/second_by_hand.png){fig-alt="A hand-drawing of the tiling given by the matrix M below. There are handwritten instructions on how to get the tiling from the matrix. There is one incorrect drawing which did not follow those directions correctlly."}
+
+$$
+M = \begin{bmatrix} 2 & 5\\ -1 & 3\end{bmatrix}
+$$
+
+```{r}
+#| code-fold: true
+#| message: false
+#| label: second
+#| warning: false
+#| echo: false
+
+## original coordinates
+A <- matrix(c(2, -1), ncol = 1)
+B <- matrix(c(5, 3), ncol = 1)
+
+## coordinates for 4 copies/combos ## HAS TO BE THE SAME OR ELSE IT'S NOT ALIGNED
+copies <- -10:10
+coefs <- expand.grid(copies, copies)
+
+x.coords <- coefs$Var1*A[1] + coefs$Var2*B[1]
+y.coords <- coefs$Var1*A[2] + coefs$Var2*B[2]
+
+plot.dat <- data.frame(x = x.coords, y = y.coords)
+p <- ggplot(data = plot.dat, aes(x = x, y = y)) +
+	geom_point() + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) + 
+	geom_rect(xmin = -7, xmax = 15, ymin = -14, ymax = 7, fill = "#FFFFFF00", col = "black") + 
+	theme_minimal()
+
+## create on-diag rectangles
+p1 <- p + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], fill = "pink", col = "darkred") + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) 
+## create off-diag rectangles
+p2 <- p1 + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], fill = "lightblue", col = "darkblue")
+p2 + geom_point(col = "magenta")
+```
+
+### Third Tile
+
+![The drawing for the third tiling. I did this one for fun by myself! I chose big numbers so I could have space to write out coordinates and work out some math for the purposes of coding it up.](images/third_by_hand.png){fig-alt="A hand-drawn visualization of the tiling given by the matrix M below. There are also lines connecting the vertices for the tiles as well as some calculations working out the equations of those lines."}
+
+$$
+M = \begin{bmatrix} 8& 5\\ -4 & 3\end{bmatrix}
+$$
+
+```{r}
+#| code-fold: true
+#| message: false
+#| warning: false
+#| label: third
+#| echo: false
+library(ggplot2)
+## original coordinates
+A <- matrix(c(8, -4), ncol = 1)
+B <- matrix(c(5, 3), ncol = 1)
+
+## coordinates for 4 copies/combos ## HAS TO BE THE SAME OR ELSE IT'S NOT ALIGNED
+copies <- -10:10
+coefs <- expand.grid(copies, copies)
+
+x.coords <- coefs$Var1*A[1] + coefs$Var2*B[1]
+y.coords <- coefs$Var1*A[2] + coefs$Var2*B[2]
+
+plot.dat <- data.frame(x = x.coords, y = y.coords)
+p <- ggplot(data = plot.dat, aes(x = x, y = y)) +
+	geom_point() + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) + 
+	geom_rect(xmin = -7, xmax = 15, ymin = -14, ymax = 7, fill = "#FFFFFF00", col = "black") + 
+	theme_minimal()
+
+
+## could fix the grid to make these for printing!
+
+## create on-diag rectangles
+p1 <- p + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2],  fill = "lightblue", col = "darkblue")+ 
+	ylim(c(-10, 7)) +
+	xlim(c(-7, 15)) 
+## create off-diag rectangles
+p2 <- p1 + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], fill = "lightgreen", col = "darkgreen")
+p2 + geom_point(col = "magenta")
+```
+
+## Computer-generated
+
+### Fourth Tile
+
+$$
+M = \begin{bmatrix} 3 & 3\\ -3 & 3\end{bmatrix}
+$$
+
+```{r}
+#| code-fold: true
+#| message: false
+#| warning: false
+#| label: fourth
+library(ggplot2)
+## original coordinates
+A <- matrix(c(3, -3), ncol = 1)
+B <- matrix(c(3, 3), ncol = 1)
+
+## coordinates for 4 copies/combos 
+copies <- -10:10
+coefs <- expand.grid(copies, copies)
+
+x.coords <- coefs$Var1*A[1] + coefs$Var2*B[1]
+y.coords <- coefs$Var1*A[2] + coefs$Var2*B[2]
+
+plot.dat <- data.frame(x = x.coords, y = y.coords)
+p <- ggplot(data = plot.dat, aes(x = x, y = y)) +
+	geom_point() + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) + 
+	geom_rect(xmin = -7, xmax = 15, ymin = -14, ymax = 7, 
+						fill = "#FFFFFF00", col = "black") + 
+	theme_minimal()
+
+
+## could fix the grid to make these for printing!
+
+## create on-diag rectangles
+p1 <- p + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], 
+							fill = "lightpink", col = "pink") + 
+	ylim(c(-10, 7)) +
+	xlim(c(-7, 15)) 
+## create off-diag rectangles
+p2 <- p1 + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], 
+							fill = "lavender", col = "purple")
+p2 + geom_point(col = "magenta")
+```
+
+### Fifth Tile
+
+$$
+M = 
+\begin{bmatrix} 12& 6\\ -3 & 1\end{bmatrix}
+$$
+
+```{r}
+#| code-fold: true
+#| message: false
+#| warning: false
+#| label: fifth
+library(ggplot2)
+## original coordinates
+A <- matrix(c(12, -3), ncol = 1)
+B <- matrix(c(6, 1), ncol = 1)
+
+## coordinates for 4 copies/combos
+copies <- -10:10
+coefs <- expand.grid(copies, copies)
+
+x.coords <- coefs$Var1*A[1] + coefs$Var2*B[1]
+y.coords <- coefs$Var1*A[2] + coefs$Var2*B[2]
+
+plot.dat <- data.frame(x = x.coords, y = y.coords)
+p <- ggplot(data = plot.dat, aes(x = x, y = y)) +
+	geom_point() + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) + 
+	geom_rect(xmin = -7, xmax = 15, ymin = -14, ymax = 7, 
+						fill = "#FFFFFF00", col = "black") + 
+	theme_minimal()
+
+
+## could fix the grid to make these for printing!
+
+## create on-diag rectangles
+p1 <- p + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], 
+							fill = "lightpink", col = "darkred") + 
+	ylim(c(-10, 7)) +
+	xlim(c(-7, 15)) 
+## create off-diag rectangles
+p2 <- p1 + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], 
+							fill = "#E0FFFF", col = "#A2FFFF")
+p2 + geom_point(col = "magenta")
+```
+
+### Sixth tile
+
+```{r}
+#| code-fold: true
+#| message: false
+#| warning: false
+#| label: sixth
+library(ggplot2)
+## original coordinates
+A <- matrix(c(7, 5), ncol = 1)
+B <- matrix(c(6, 2), ncol = 1)
+
+## coordinates for 4 copies/combos
+copies <- -15:15
+coefs <- expand.grid(copies, copies)
+
+x.coords <- coefs$Var1*A[1] + coefs$Var2*B[1]
+y.coords <- coefs$Var1*A[2] + coefs$Var2*B[2]
+
+plot.dat <- data.frame(x = x.coords, y = y.coords)
+p <- ggplot(data = plot.dat, aes(x = x, y = y)) +
+	geom_point() + 
+	ylim(c(-14, 7)) +
+	xlim(c(-7, 15)) + 
+	# geom_rect(xmin = -7, xmax = 15, ymin = -14, ymax = 7, 
+	# 					fill = "#FFFFFF00", col = "black") + 
+	theme_void()
+
+
+## could fix the grid to make these for printing!
+
+## create on-diag rectangles
+p1 <- p +geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], 
+							fill = "#008b8b", alpha = .1) + 
+							geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], 
+							fill = "#FFFFFF00", col = "grey") +
+							geom_rect(xmin = plot.dat$x[481], xmax = plot.dat$x[481] + B[1], 
+							ymin = plot.dat$y[481], ymax = plot.dat$y[481] - A[2], 
+							fill = "#FFFFFF00", col = "blue") +
+							geom_point(col = "magenta") + 
+							ylim(c(-14, 7)) +
+							xlim(c(-7, 15))
+
+
+
+
+library(patchwork)
+p2 <- p + geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], 
+							fill = "yellow", alpha = .3) +
+							geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], 
+							fill = "#FFFFFF00", col = "grey") +
+							geom_rect(xmin = plot.dat$x[481], xmax = plot.dat$x[481] + A[1], 
+							ymin = plot.dat$y[481], ymax = plot.dat$y[481] - B[2], 
+							fill = "#FFFFFF00", col = "orange")+
+							geom_point(col = "magenta")+ 
+							ylim(c(-14, 7)) +
+							xlim(c(-7, 15))
+
+## create off-diag rectangles
+p_both <- p1 +  geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], 
+							fill = "yellow", alpha = .2) +
+							## outlines
+							geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + B[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - A[2], 
+							fill = "#FFFFFF00", col = "lightblue", lwd = 2) +
+							geom_rect(xmin = plot.dat$x, xmax = plot.dat$x + A[1], 
+							ymin = plot.dat$y, ymax = plot.dat$y - B[2], 
+							fill = "#FFFFFF00", col = "lightyellow") + 
+							geom_rect(xmin = plot.dat$x[481], xmax = plot.dat$x[481] + B[1], 
+							ymin = plot.dat$y[481], ymax = plot.dat$y[481] - A[2], 
+							fill = "#FFFFFF00", col = "blue", lwd = 2) +
+							geom_rect(xmin = plot.dat$x[481], xmax = plot.dat$x[481] + A[1], 
+							ymin = plot.dat$y[481], ymax = plot.dat$y[481] - B[2], 
+							fill = "#FFFFFF00", col = "yellow") +
+							geom_point(col = "magenta") + 
+							ylim(c(-14, 7)) +
+							xlim(c(-7, 15))
+## add edges after
+p1 + p2 + p_both
+```

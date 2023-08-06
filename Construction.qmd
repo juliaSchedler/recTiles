@@ -1,0 +1,65 @@
+# Construction
+
+## Code outline
+
+**Input:**
+
+-   A $(2+k) \times (2 +k)$ matrix $M$
+
+**Step 1**
+
+-   calculate $k$
+
+-   Create three new matrices:
+
+    -   $M_{TOP}$ is the $2 \times (2+k)$ matrix consisting of the first two rows of $M$
+
+    -   $M_{BOT}$ is the $k \times (2+k)$ matrix consisting of the remaining $k$ rows of $M$
+
+    -   $M'$ is the $(2+k) \times (2 +k)$ matrix created by stacking $M_{TOP}$ and $-M_{BOT}$
+
+**Step 2**
+
+-   For each $\sigma \in \binom{[2+k]}{2}$, define $S_{\sigma}(M)$ as follows:
+
+    ::: {.callout-note collapse="true"}
+    ## Notation: $\binom{[n]}{k}$
+
+    The notation is shorthand for the set of all subsets of $\{1, 2, \dots, n\}$ of size $k$.
+
+    For example, if $n = 3$ and $k=2$, $$\binom{[n]}{k} =  \binom{[3]}{2} = FIXME$$
+    :::
+
+    -   Start with $M'$,
+
+        -   Consider $i^{th}$ column for $i \in \{1, 2, \dots, k+2\}$. If :
+            -   $i \in \sigma$: zero out bottom $k$ entries
+            -   $i \not\in \sigma$: zero out the top 2 entries
+
+![Here, $k = 3$ and $\sigma = \{2, 5\}$.](images/matrix_example.png)
+
+-   After this process, you will end up with $\frac{1}{2}k^2 + \frac{3}{2}k + 1$ matrices
+
+**Step 3**
+
+Consider the matrices $\{S_\sigma\}$. Each of these matrices corresponds to a $2+k$-dimensional shape (the [fundamental parallelepiped](https://en.wikipedia.org/wiki/Parallelepiped#:~:text=In%20geometry%2C%20a%20parallelepiped%20is,cube%20relates%20to%20a%20square.) $\Pi \left ( S_\sigma\right )$ defined by the columns of that matrix).
+
+::: {.callout-note collapse="true"}
+## The fundamental parallelepiped $\Pi(S_\sigma)$
+
+Note that
+
+$$\Pi \left ( S_\sigma\right ) = \{S_\sigma \cdot (x_1, \dots, x_{k+2})'\}$$ Think of the $x_i$ as representing the interval $[0,1]$, so that you are getting a shape. In other words, $\Pi$ is the [Minkowski sum](https://en.wikipedia.org/wiki/Minkowski_addition) of the columns of $S_\sigma$.
+:::
+
+For each $\sigma$, want to visualize a collection of parallelepipeds, $\Pi \left ( S_\sigma\right ) + Mz$, where $z \in \mathbb{Z}^{k+2}$. (FIXME: in practice we won't want to generate individual plots because there will be too many, we just want to emphasize a given $S_\sigma$ in the plots discussed next.)
+
+The desired end product is to create two visualizations: one of all positive $S_\sigma$ and one of all negative $S_\sigma$.
+
+::: {.callout-note collapse="true"}
+## What about $det(S_\sigma) = 0$?
+
+The determinant measures volume. So, in this case, the volume of the parallelepiped is 0, so there is nothing to visualize.
+:::
+
+Also, that parallelepiped is more than 3D so there will need to be a choice made in which slices to take for visualization.
