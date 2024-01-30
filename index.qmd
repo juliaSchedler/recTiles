@@ -3,7 +3,7 @@
 This work is an introductory and visual exploration of Alex McDonough and Joseph Dolittle's paper (see below). For something which is so visually stimulating, the paper is quite rigorous (it is, after all, a math paper). This page is dedicated to accessible presentations of the content with lots of pretty pictures for those of us too lazy to engage with the rigor required to engage mathematically with our world.
 
 ::: {.callout-note collapse="true"}
-## Fragmenting Any Parallelepiped into a Signed Tiling 
+## Fragmenting Any Parallelepiped into a Signed Tiling
 
 It is broadly known that any parallelepiped tiles space by translating copies of itself along its edges. In earlier work relating to higher-dimensional sandpile groups, the second author discovered a novel construction which fragments the parallelpiped into a collection of smaller tiles. These tiles fill space with the same symmetry as the larger parallelepiped. Their volumes are equal to the components of the multi-row Laplace determinant expansion, so this construction only works when all these signs are non-negative (or non-positive).\
 In this work, we extend the construction to work for all parallelepipeds, without requiring the non-negative condition. This naturally gives tiles with negative volume, which we understand to mean canceling out tiles with positive volume. In fact, with this cancellation, we prove that every point in space is contained in exactly one more tile with positive volume than tile with negative volume. This is a natural definition for a signed tiling.\
