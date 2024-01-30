@@ -11,16 +11,6 @@ book:
   chapters:
     - href: index.qmd
       text: Home
-    # - href:
-    # 	text: Intro (2D)
-    # - href:
-    # 	text: Projecting to 1D
-    # - href:
-    # 	text: Projecting to 2D
-    # - href:
-    # 	text: "General Construction"
-    # - href:
-    # 	text: "Jail"
     - href: handdrawn.qmd
       text: Julias first tiles
     - href: Construction.qmd
