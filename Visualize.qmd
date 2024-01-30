@@ -1,0 +1,14 @@
+Given a matrix
+
+```{r}
+library(rgl)
+M <- diag(c(1,1,1))
+open3d()
+points3d(x = M[,1], y = M[,2], z = M[,3])
+```
+
+The columns of that matrix do not draw a parallelogram. But they do define it, you just need to get the other coordinates.
+
+```{r}
+
+```
